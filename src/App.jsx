@@ -25,13 +25,15 @@ export default function App() {
   // Favorites state persisted in localStorage
   const [favorites, setFavorites] = useState(() => {
     try {
-      const saved = localStorage.getItem('globallandlord_favorites')
-      if (saved) {
-        const parsed = JSON.parse(saved)
-        return new Set(Array.isArray(parsed) ? parsed : [])
+      if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+        const saved = localStorage.getItem('globallandlord_favorites')
+        if (saved) {
+          const parsed = JSON.parse(saved)
+          return new Set(Array.isArray(parsed) ? parsed : [])
+        }
       }
     } catch (e) {
-      console.warn('Could not read favorites from localStorage')
+      // Quiet fallback for non-browser or restricted storage environments
     }
     return new Set()
   })
@@ -59,9 +61,11 @@ export default function App() {
         showToast(`❤️ Added "${property.title}" to saved favorites!`)
       }
       try {
-        localStorage.setItem('globallandlord_favorites', JSON.stringify(Array.from(next)))
+        if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+          localStorage.setItem('globallandlord_favorites', JSON.stringify(Array.from(next)))
+        }
       } catch (e) {
-        console.warn('Could not save favorites to localStorage')
+        // Storage full or restricted
       }
       return next
     })
