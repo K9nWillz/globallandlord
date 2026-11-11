@@ -1,0 +1,32 @@
+import { useState } from 'react'
+import Navbar from './components/Navbar'
+import Hero from './components/Hero'
+import PopularPlaces from './components/PopularPlaces'
+import FeaturedProperties from './components/FeaturedProperties'
+import WhyChooseUs from './components/WhyChooseUs'
+import DiscoverProperties from './components/DiscoverProperties'
+import Agents from './components/Agents'
+import Testimonials from './components/Testimonials'
+import Partners from './components/Partners'
+import Footer from './components/Footer'
+import LoginModal from './components/LoginModal'
+
+export default function App() {
+  const [loginOpen, setLoginOpen] = useState(false)
+
+  return (
+    <div className="min-h-screen bg-white">
+      <Navbar onOpenLogin={() => setLoginOpen(true)} />
+      <Hero />
+      {/* <PopularPlaces /> */}
+      <FeaturedProperties />
+      <WhyChooseUs />
+      <DiscoverProperties />
+      <Agents />
+      <Testimonials />
+      {/* <Partners /> */}
+      <Footer />
+      <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} />
+    </div>
+  )
+}

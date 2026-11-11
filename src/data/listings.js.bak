@@ -1,0 +1,186 @@
+export const popularPlaces = [
+  { id: 1, city: 'Abakaliki', count: 203, img: 'https://picsum.photos/seed/ny-city/600/500' },
+  { id: 2, city: 'Enugu', count: 307, img: 'https://picsum.photos/seed/la-city/600/500' },
+  { id: 3, city: 'Aba', count: 409, img: 'https://picsum.photos/seed/sf-city/600/500' },
+  { id: 4, city: 'Ibadan', count: 409, img: 'https://picsum.photos/seed/atl-city/600/500' },
+  { id: 5, city: 'Abuja', count: 145, img: 'https://picsum.photos/seed/miami-city/600/500' },
+  { id: 6, city: 'Port Harcourt', count: 112, img: 'https://picsum.photos/seed/chi-city/600/500' },
+  { id: 7, city: 'Owerri', count: 254, img: 'https://picsum.photos/seed/hou-city/600/500' },
+  { id: 8, city: 'Asaba', count: 254, img: 'https://picsum.photos/seed/orl-city/600/500' },
+]
+
+export const properties = [
+  {
+    id: 1,
+    title: 'Noble Estate (GRA)',
+    address: 'Off Ezza Road, GRA (near Presco Junction), Abakaliki',
+    price: '₦25,000,000 Per Plot',
+    plots: 14,
+    area: '70,000 sq ft',
+    tag: 'sale',
+    featured: true,
+    img: '/Assets/three.jpg',
+  },
+  {
+    id: 2,
+    title: 'International Market Property',
+    address: 'Azuiyi Udene / Intl Market Corridor',
+    price: '₦110,000,000',
+    plots: 2,
+    area: '10,000 sq ft',
+    tag: 'sale',
+    featured: true,
+    img: '/Assets/four.jpg',
+  },
+  {
+    id: 3,
+    title: 'Flourish Garden Estate',
+    address: 'Ntezi, Ebonyi State',
+    price: '₦1,500,000 Per Plot',
+    plots: 50,
+    area: '82,500 sq ft',
+    tag: 'sale',
+    featured: false,
+    img: '/Assets/five.jpg',
+  },
+  {
+    id: 4,
+    title: 'CrestMark City Estate (Phase 1)',
+    address: 'Centenary City Corridor, Abakaliki',
+    price: '₦9,500,000 Per Plot',
+    plots: 35,
+    area: '82,500 sq ft',
+    tag: 'sale',
+    featured: false,
+    img: '/Assets/two.jpg',
+  },
+  {
+    id: 5,
+    title: 'CrestMark City Estate (Phase 2)',
+    address: 'Centenary City Corridor, Abakaliki',
+    price: '₦7,000,000 Per Plot',
+    plots: 40,
+    area: '82,500 sq ft',
+    tag: 'sale',
+    featured: false,
+    img: '/Assets/one.jpg',
+  },
+]
+
+export const discoverProperties = [
+  { id: 1, title: 'CrestMark City Estate (Phase 1)', price: '₦9,500,000', tag: 'sale', featured: true, img: '/Assets/two.jpg' },
+  { id: 2, title: 'CrestMark City Estate (Phase 2)', price: '₦7,000,000', tag: 'sale', featured: false, img: '/Assets/one.jpg' },
+  { id: 3, title: 'Flourish Garden Estate', price: '₦1,500,000', tag: 'sale', featured: false, img: '/Assets/three.jpg' },
+  { id: 4, title: 'International Market Property', price: '₦110,000,000', tag: 'sale', featured: true, img: '/Assets/four.jpg' },
+  { id: 5, title: 'Noble Estate (GRA)', price: '₦25,000,000', tag: 'sale', featured: false, img: '/Assets/five.jpg' },
+]
+
+export const whyChooseUs = [
+  {
+    id: 1,
+    title: 'Verified Land Portfolios',
+    text: 'Browse carefully surveyed listings across high-growth corridors, updated directly by accredited land consultants.',
+  },
+  {
+    id: 2,
+    title: 'Trusted Advisory',
+    text: 'A proven track record of transparent documentation, zero-encumbrance plots, and high-yield strategic acquisitions.',
+  },
+  {
+    id: 3,
+    title: 'Zero Omonile & Dispute-Free',
+    text: 'Every plot undergoes rigorous title vetting and layout validation to guarantee 100% legal ownership with zero community clashes.',
+  },
+  {
+    id: 4,
+    title: 'Strategic Land Banking',
+    text: 'We target expanding development zones, helping you secure plots before upcoming infrastructure sends valuations soaring.',
+  },
+]
+
+export const agents = [
+  {
+    id: 1,
+    name: 'Christian Onuoha',
+    role: 'Real Estate Consultant & Marketer',
+    img: '/Assets/CEO_image.jpg',
+    facebook: 'https://facebook.com',
+    twitter: 'https://twitter.com',
+    linkedin: 'https://linkedin.com',
+    email: 'globallandlord@gmail.com',
+  },
+]
+
+export const testimonials = [
+  {
+    id: 1,
+    name: 'Lisa Nzuzu',
+    city: 'Abakaliki',
+    img: 'https://picsum.photos/seed/client-1/100/100',
+    quote: 'They secured our plots in two weeks with clean documentation. Smooth experience end to end.',
+  },
+  {
+    id: 2,
+    name: 'John Adeleke',
+    city: 'Ibadan',
+    img: 'https://picsum.photos/seed/client-2/100/100',
+    quote: 'Clear communication from day one, no hidden fees or verification surprises at closing.',
+  },
+  {
+    id: 3,
+    name: 'Mary Deshaw',
+    city: 'Dubai',
+    img: 'https://picsum.photos/seed/client-3/100/100',
+    quote: 'Investing from the diaspora was painless. GlobalLandlord handled inspections and verified titles seamlessly.',
+  },
+  {
+    id: 4,
+    name: 'Gary Aguru',
+    city: 'Enugu',
+    img: 'https://picsum.photos/seed/client-4/100/100',
+    quote: 'Sold our old commercial asset and expanded our land portfolio via the same team.',
+  },
+  {
+    id: 5,
+    name: 'Chinedu Okonkwo',
+    city: 'Abakaliki',
+    img: 'https://picsum.photos/seed/client-5/100/100',
+    quote: 'Acquired two plots at CrestMark City Phase 1. Allocation was prompt, and deed registration was handled without any runaround.',
+  },
+  {
+    id: 6,
+    name: 'Dr. Stella Amadi',
+    city: 'London',
+    img: 'https://picsum.photos/seed/client-6/100/100',
+    quote: 'Diaspora land buying is usually full of anxiety, but their video documentation and transparent title deed checks gave me total peace of mind.',
+  },
+  {
+    id: 7,
+    name: 'Emeka Nwosu',
+    city: 'Enugu',
+    img: 'https://picsum.photos/seed/client-7/100/100',
+    quote: 'Solid land banking advice. The plot I bought through them along the Centenary corridor has already appreciated significantly within eight months.',
+  },
+  {
+    id: 8,
+    name: 'Blessing Umeh',
+    city: 'Abuja',
+    img: 'https://picsum.photos/seed/client-8/100/100',
+    quote: 'Finding affordable, legit land in Ntezi with proper layout plans felt impossible until I spoke with Christian. Flawless execution.',
+  },
+  {
+    id: 9,
+    name: 'Tunde Bakare',
+    city: 'Lagos',
+    img: 'https://picsum.photos/seed/client-9/100/100',
+    quote: 'Zero hidden agency fees and straightforward paperwork. If you want hassle-free acreage in the East, this is the right desk.',
+  },
+]
+
+export const navLinks = [
+  { label: 'Home', href: '#home' },
+  { label: 'Listings', href: '#listings' },
+  { label: 'Agents', href: '#agents' },
+  { label: 'About', href: '#about' },
+  { label: 'Contact', href: '#contact' },
+]
