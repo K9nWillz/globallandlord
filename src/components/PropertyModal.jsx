@@ -1,15 +1,28 @@
-export default function PropertyModal({ property, onClose }) {
+import React from 'react'
+
+export default function PropertyModal({ 
+  property, 
+  onClose,
+  isFavorite = false,
+  onToggleFavorite,
+  onShare,
+  onViewAllLands
+}) {
   if (!property) return null
 
   const whatsappMessage = encodeURIComponent(
-    `Hello Christian, I am inquiring about the property: ${property.title} listed at ${property.price}. Please provide more details.`
+    `Hello Christian, I am inquiring about the property: ${property.title} (${property.address || ''}) listed at ${property.price}. Please provide more details.`
   )
 
   const handleSeeOtherListings = () => {
     onClose()
-    const listingsSection = document.getElementById('listings')
-    if (listingsSection) {
-      listingsSection.scrollIntoView({ behavior: 'smooth' })
+    if (onViewAllLands) {
+      onViewAllLands()
+    } else {
+      const listingsSection = document.getElementById('listings')
+      if (listingsSection) {
+        listingsSection.scrollIntoView({ behavior: 'smooth' })
+      }
     }
   }
 
@@ -27,14 +40,52 @@ export default function PropertyModal({ property, onClose }) {
           <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">
             ✓ {property.titleDeed || 'C of O Available'}
           </span>
-          <button 
-            type="button"
-            onClick={onClose}
-            aria-label="Close modal"
-            className="text-gray-500 hover:text-gray-900 h-8 w-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition cursor-pointer font-bold text-sm"
-          >
-            ✕
-          </button>
+          
+          <div className="flex items-center gap-1.5">
+            <button 
+              type="button"
+              onClick={() => onShare?.(property)}
+              aria-label="Share property link"
+              title="Share property link"
+              className="text-gray-500 hover:text-brand-500 h-8 w-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition cursor-pointer"
+            >
+              <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M13 4.5a2.5 2.5 0 11.702 1.737L6.97 9.604a2.518 2.518 0 010 .792l6.732 3.367a2.5 2.5 0 11-.671 1.341l-6.732-3.367a2.5 2.5 0 110-3.475l6.732-3.366A2.5 2.5 0 0113 4.5z" />
+              </svg>
+            </button>
+
+            <button 
+              type="button"
+              onClick={() => onToggleFavorite?.(property)}
+              aria-label={isFavorite ? "Remove favorite" : "Favorite"}
+              title={isFavorite ? "Saved in favorites" : "Save to favorites"}
+              className={`h-8 w-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition cursor-pointer ${
+                isFavorite ? 'text-brand-500' : 'text-gray-500 hover:text-brand-500'
+              }`}
+            >
+              <svg
+                className={`h-4 w-4 transition-transform duration-200 ${
+                  isFavorite ? 'fill-brand-500 text-brand-500 scale-110' : 'fill-none stroke-current stroke-2'
+                }`}
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                />
+              </svg>
+            </button>
+
+            <button 
+              type="button"
+              onClick={onClose}
+              aria-label="Close modal"
+              className="text-gray-500 hover:text-gray-900 h-8 w-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition cursor-pointer font-bold text-sm"
+            >
+              ✕
+            </button>
+          </div>
         </div>
 
         {/* Modal Hero Image & Price Badge */}
@@ -47,6 +98,11 @@ export default function PropertyModal({ property, onClose }) {
           <div className="absolute bottom-3 left-3 bg-brand-500 text-white font-black px-4 py-1.5 rounded-lg text-sm shadow-md">
             {property.price}
           </div>
+          {property.state && (
+            <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-xs text-white font-semibold px-3 py-1 rounded-lg text-xs">
+              {property.state}
+            </div>
+          )}
         </div>
 
         {/* Header Information */}
@@ -127,7 +183,7 @@ export default function PropertyModal({ property, onClose }) {
             onClick={handleSeeOtherListings}
             className="w-full sm:w-auto px-4 py-2.5 border border-gray-200 text-gray-700 rounded-xl text-xs font-semibold hover:bg-gray-50 transition cursor-pointer"
           >
-            ← See Other Listings
+            ← Browse All Land Portfolios
           </button>
           
           <div className="flex w-full sm:w-auto gap-2">

@@ -2,7 +2,12 @@ import { useRef } from 'react'
 import { discoverProperties } from '../data/listings'
 import PropertyCard from './PropertyCard'
 
-export default function DiscoverProperties() {
+export default function DiscoverProperties({ 
+  onSelectProperty,
+  favorites = new Set(),
+  onToggleFavorite,
+  onShare 
+}) {
   const trackRef = useRef(null)
 
   const scroll = (dir) => {
@@ -23,14 +28,14 @@ export default function DiscoverProperties() {
             <button
               onClick={() => scroll(-1)}
               aria-label="Scroll left"
-              className="h-10 w-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-ink hover:text-white transition"
+              className="h-10 w-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-ink hover:text-white transition cursor-pointer"
             >
               ‹
             </button>
             <button
               onClick={() => scroll(1)}
               aria-label="Scroll right"
-              className="h-10 w-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-ink hover:text-white transition"
+              className="h-10 w-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-ink hover:text-white transition cursor-pointer"
             >
               ›
             </button>
@@ -43,7 +48,13 @@ export default function DiscoverProperties() {
         >
           {discoverProperties.map((property) => (
             <div key={property.id} className="min-w-[300px] max-w-[320px] snap-start">
-              <PropertyCard property={property} />
+              <PropertyCard 
+                property={property} 
+                onSelect={onSelectProperty}
+                isFavorite={favorites.has(property.id)}
+                onToggleFavorite={onToggleFavorite}
+                onShare={onShare}
+              />
             </div>
           ))}
         </div>
