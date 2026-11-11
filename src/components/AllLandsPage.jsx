@@ -3,6 +3,15 @@ import { properties } from '../data/listings'
 import PropertyCard from './PropertyCard'
 import Footer from './Footer'
 
+const filterStates = [
+  { id: 'all', label: 'All States' },
+  { id: 'Ebonyi', label: 'Ebonyi' },
+  { id: 'Enugu', label: 'Enugu' },
+  { id: 'Abuja', label: 'Abuja' },
+  { id: 'Abia', label: 'Abia' },
+  { id: 'Anambra', label: 'Anambra' },
+]
+
 export default function AllLandsPage({
   onGoHome,
   onSelectProperty,
@@ -19,12 +28,6 @@ export default function AllLandsPage({
   const [sortBy, setSortBy] = useState('featured')
   const [showOnlyFavorites, setShowOnlyFavorites] = useState(false)
   const [selectedTag, setSelectedTag] = useState('all')
-
-  // Extract all unique states
-  const states = useMemo(() => {
-    const list = Array.from(new Set(properties.map((p) => p.state).filter(Boolean)))
-    return ['all', ...list]
-  }, [])
 
   // Filter and sort properties
   const filteredProperties = useMemo(() => {
@@ -106,6 +109,8 @@ export default function AllLandsPage({
     showOnlyFavorites ||
     selectedTag !== 'all'
 
+  const isUpcomingState = selectedState !== 'all' && selectedState !== 'Ebonyi'
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-between">
       {/* Top Header / Sticky Nav */}
@@ -128,7 +133,7 @@ export default function AllLandsPage({
                 e.preventDefault()
                 onGoHome()
               }}
-              className="font-display font-extrabold text-xl text-ink hidden sm:block"
+              className="font-display font-extrabold text-xl text-ink hidden sm:block cursor-pointer"
             >
               Global<span className="text-brand-500">Landlord</span>
             </a>
@@ -153,14 +158,6 @@ export default function AllLandsPage({
               </svg>
               <span>Saved ({favorites.size})</span>
             </button>
-
-            <button
-              type="button"
-              onClick={onOpenContact}
-              className="px-3.5 py-2 bg-brand-500 hover:bg-brand-600 text-white rounded-lg text-xs font-bold transition shadow-xs cursor-pointer"
-            >
-              Contact Us
-            </button>
           </div>
         </div>
       </header>
@@ -171,20 +168,17 @@ export default function AllLandsPage({
         <div className="container-app relative">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/20 text-brand-400 text-xs font-semibold mb-3 border border-brand-500/30">
-                <span>📍</span> Nigerian Real Estate Portfolios
-              </div>
               <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white">
                 All Land <span className="text-brand-500">Listings</span>
               </h1>
               <p className="mt-3 text-gray-300 text-sm md:text-base max-w-2xl leading-relaxed">
-                Filter and sort verified estate layouts and commercial plots across Ebonyi, Enugu, Abuja (FCT), Lagos, Delta, and Imo with verified titles.
+                Filter and sort verified estate layouts and commercial plots across Ebonyi State with verified titles.
               </p>
             </div>
 
             <div className="flex items-center gap-3">
               <span className="bg-white/10 px-4 py-2 rounded-xl text-xs font-semibold border border-white/10">
-                {properties.length} Verified Plots Total
+                {properties.length} Verified Plots Available
               </span>
             </div>
           </div>
@@ -253,7 +247,6 @@ export default function AllLandsPage({
                 <option value="all">Price: All Ranges</option>
                 <option value="under10m">Under ₦10,000,000</option>
                 <option value="10m-30m">₦10,000,000 - ₦30,000,000</option>
-                <option value="30m-60m">₦30,000,000 - ₦60,000,000</option>
                 <option value="above60m">Above ₦60,000,000</option>
               </select>
             </div>
@@ -265,30 +258,34 @@ export default function AllLandsPage({
               <span className="text-xs font-bold text-gray-500 uppercase tracking-wider mr-1">
                 State:
               </span>
-              {states.map((st) => {
-                const count = st === 'all' 
+              {filterStates.map((st) => {
+                const count = st.id === 'all' 
                   ? properties.length 
-                  : properties.filter((p) => p.state === st).length
-                const isSelected = selectedState === st
+                  : properties.filter((p) => p.state === st.id).length
+                const isSelected = selectedState === st.id
 
                 return (
                   <button
-                    key={st}
+                    key={st.id}
                     type="button"
-                    onClick={() => setSelectedState(st)}
+                    onClick={() => setSelectedState(st.id)}
                     className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer flex items-center gap-1.5 ${
                       isSelected
                         ? 'bg-brand-500 text-white shadow-xs'
                         : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
                     }`}
                   >
-                    <span>{st === 'all' ? 'All States' : st}</span>
+                    <span>{st.label}</span>
                     <span
                       className={`text-[10px] px-1.5 py-0.2 rounded-full ${
-                        isSelected ? 'bg-white/20 text-white' : 'bg-gray-200 text-gray-600'
+                        isSelected 
+                          ? 'bg-white/20 text-white' 
+                          : count > 0 
+                            ? 'bg-gray-200 text-gray-700 font-bold' 
+                            : 'bg-amber-100 text-amber-800'
                       }`}
                     >
-                      {count}
+                      {count > 0 ? count : 'Soon'}
                     </span>
                   </button>
                 )
@@ -329,7 +326,7 @@ export default function AllLandsPage({
           )}
         </div>
 
-        {/* Property Grid or Empty State */}
+        {/* Property Grid or Specialized State/Empty View */}
         {filteredProperties.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProperties.map((property) => (
@@ -343,6 +340,37 @@ export default function AllLandsPage({
               />
             ))}
           </div>
+        ) : isUpcomingState ? (
+          <div className="bg-white rounded-3xl p-8 sm:p-12 text-center border border-gray-200 shadow-sm max-w-lg mx-auto my-12">
+            <div className="h-16 w-16 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl border border-amber-200">
+              📍
+            </div>
+            <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-3 py-1 rounded-md border border-amber-200 inline-block mb-3">
+              Coming Soon to {selectedState}
+            </span>
+            <h3 className="font-display font-extrabold text-xl text-gray-900 mb-2">
+              No lands currently listed in {selectedState}
+            </h3>
+            <p className="text-sm text-gray-500 mb-6 leading-relaxed">
+              We are currently conducting due diligence and boundary layout surveys in {selectedState}. Verified estate portfolios will be added here soon. Contact our consultant for early access or upcoming allocations.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+              <button
+                type="button"
+                onClick={() => setSelectedState('Ebonyi')}
+                className="w-full sm:w-auto px-5 py-2.5 bg-brand-500 hover:bg-brand-600 text-white font-display font-semibold text-xs rounded-xl shadow-md transition cursor-pointer"
+              >
+                View Available Ebonyi Lands ({properties.length})
+              </button>
+              <button
+                type="button"
+                onClick={onOpenContact}
+                className="w-full sm:w-auto px-5 py-2.5 border border-gray-300 text-gray-700 hover:bg-gray-100 font-display font-semibold text-xs rounded-xl transition cursor-pointer"
+              >
+                Inquire / Pre-register
+              </button>
+            </div>
+          </div>
         ) : (
           <div className="bg-white rounded-3xl p-12 text-center border border-gray-200 shadow-sm max-w-lg mx-auto my-12">
             <div className="h-16 w-16 bg-brand-50 text-brand-500 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
@@ -352,7 +380,7 @@ export default function AllLandsPage({
               No matching properties found
             </h3>
             <p className="text-sm text-gray-500 mb-6 leading-relaxed">
-              We couldn't find any land listings that match your current filter criteria. Try adjusting your search keyword, state selection, or price range.
+              We couldn't find any land listings that match your current filter criteria. Try adjusting your search keyword or price range.
             </p>
             <button
               type="button"

@@ -7,7 +7,7 @@ export default function PropertyCard({
   onToggleFavorite, 
   onShare 
 }) {
-  const { title, address, price, plots, area, tag, featured, img, state } = property
+  const { title, address, price, plots, area, tag, featured, img } = property
 
   return (
     <div className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg transition group flex flex-col justify-between h-full relative">
@@ -18,7 +18,7 @@ export default function PropertyCard({
             alt={title}
             className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
           />
-          <div className="absolute top-3 left-3 flex flex-wrap gap-2">
+          <div className="absolute top-3 left-3 flex gap-2">
             {featured && (
               <span className="bg-ink text-white text-xs font-semibold px-3 py-1 rounded shadow-sm">
                 Featured
@@ -31,36 +31,7 @@ export default function PropertyCard({
             >
               For {tag === 'rent' ? 'Rent' : 'Sale'}
             </span>
-            {state && (
-              <span className="bg-black/60 backdrop-blur-xs text-white text-xs font-semibold px-2.5 py-1 rounded">
-                {state}
-              </span>
-            )}
           </div>
-
-          {/* Quick Floating Favorite Button on Image Corner */}
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation()
-              onToggleFavorite?.(property)
-            }}
-            aria-label={isFavorite ? 'Remove from saved' : 'Save to favorites'}
-            className="absolute top-3 right-3 h-8 w-8 rounded-full bg-white/90 hover:bg-white text-gray-700 shadow-md flex items-center justify-center transition active:scale-90 cursor-pointer"
-          >
-            <svg
-              className={`h-4 w-4 transition-transform ${
-                isFavorite ? 'fill-brand-500 text-brand-500 scale-110' : 'fill-none stroke-current stroke-2 text-gray-500 hover:text-brand-500'
-              }`}
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-              />
-            </svg>
-          </button>
         </div>
 
         <div className="p-5">

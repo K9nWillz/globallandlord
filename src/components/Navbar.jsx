@@ -120,17 +120,6 @@ export default function Navbar({
           ))}
         </nav>
 
-        {/* DESKTOP ACTIONS */}
-        <div className="hidden lg:flex items-center gap-4">
-          <button
-            type="button"
-            onClick={onOpenContact}
-            className="btn-brand !py-2.5 !px-5 text-sm cursor-pointer"
-          >
-            Contact Consultant
-          </button>
-        </div>
-
         {/* MOBILE MENU BUTTON */}
         <button
           type="button"
@@ -174,17 +163,6 @@ export default function Navbar({
               {link.label}
             </a>
           ))}
-
-          <button
-            type="button"
-            onClick={() => {
-              setMobileOpen(false)
-              onOpenContact?.()
-            }}
-            className="w-full text-center py-2.5 bg-brand-500 text-white rounded-lg font-display text-xs font-bold"
-          >
-            Contact Consultant
-          </button>
 
         </div>
       )}
